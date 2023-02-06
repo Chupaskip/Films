@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragments.SavedFilmsFragment">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/films_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_700"
+        app:title="Saved films"
+        app:titleTextColor="@color/white">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/film_search"
+            style="@style/Widget.AppCompat.SearchView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_saved_films"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/films_toolbar"
+        tools:listitem="@layout/item_film"/>
+
+</RelativeLayout>

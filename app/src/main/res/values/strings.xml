@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Films</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dummy_text">Etiam nulla dui, pretium a mi nec, consectetur finibus quam. Curabitur blandit dui vitae ex pharetra, quis lobortis diam finibus. Nullam egestas tincidunt blandit. Curabitur in tempor arcu. Curabitur luctus quam nec velit pellentesque congue. Maecenas accumsan quis nunc id consequat.
+
+Cras est sapien, pretium non ullamcorper nec, eleifend sed leo. Nullam et nibh urna. Donec placerat lectus egestas orci aliquam, ornare malesuada lorem lobortis. Nunc dapibus tincidunt enim in ultricies. Sed consectetur est et est tincidunt, ac tempus ligula posuere. Sed volutpat efficitur leo. Fusce ut sem in nibh efficitur faucibus. Mauris faucibus pretium felis, quis iaculis mauris pulvinar eget. Aliquam volutpat hendrerit libero vitae tincidunt.
+
+Cras id blandit neque, non placerat libero. Aenean lacinia sapien in magna pellentesque finibus.</string>
+    <string name="is_save_btn">isSaveButtonVisible</string>
+</resources>
