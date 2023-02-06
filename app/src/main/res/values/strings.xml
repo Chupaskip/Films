@@ -7,5 +7,5 @@
 Cras est sapien, pretium non ullamcorper nec, eleifend sed leo. Nullam et nibh urna. Donec placerat lectus egestas orci aliquam, ornare malesuada lorem lobortis. Nunc dapibus tincidunt enim in ultricies. Sed consectetur est et est tincidunt, ac tempus ligula posuere. Sed volutpat efficitur leo. Fusce ut sem in nibh efficitur faucibus. Mauris faucibus pretium felis, quis iaculis mauris pulvinar eget. Aliquam volutpat hendrerit libero vitae tincidunt.
 
 Cras id blandit neque, non placerat libero. Aenean lacinia sapien in magna pellentesque finibus.</string>
-    <string name="is_save_btn">isSaveButtonVisible</string>
+    <string name="lastSearch">lastSearch</string>
 </resources>

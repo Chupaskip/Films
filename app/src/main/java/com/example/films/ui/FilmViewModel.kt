@@ -6,12 +6,10 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.films.FilmApplication
 import com.example.films.models.film.Film
-import com.example.films.models.film.toSearch
 import com.example.films.models.search.SearchResponse
 import com.example.films.repository.FilmRepository
 import com.example.films.util.Resource
@@ -27,10 +25,10 @@ class FilmViewModel(
     val searchText: MutableLiveData<String> = MutableLiveData()
     var disableSaveBtn:  MutableLiveData<Boolean> = MutableLiveData(false)
 
-    init {
-        searchText.value = getRandomString()
-        getFilms(searchText.value ?: "")
-    }
+//    init {
+//        searchText.value = getRandomWord()
+//        getFilms(searchText.value ?: "")
+//    }
 
     fun getFilms(filmName: String) {
         viewModelScope.launch {
@@ -84,7 +82,7 @@ class FilmViewModel(
         return false
     }
 
-    private fun getRandomString(): String {
+    fun getRandomWord(): String {
         val allowedWords = listOf(
             "big",
             "rap",

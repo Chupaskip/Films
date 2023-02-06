@@ -1,5 +1,6 @@
 package com.example.films.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -23,6 +24,9 @@ class SearchFilmsFragment : Fragment() {
     private lateinit var viewModel: FilmViewModel
     private lateinit var filmAdapter: FilmAdapter
 
+    private val sharedPref by lazy {
+        activity?.getPreferences(Context.MODE_PRIVATE)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +36,8 @@ class SearchFilmsFragment : Fragment() {
         binding = FragmentSearchFilmsBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,7 +70,9 @@ class SearchFilmsFragment : Fragment() {
                     binding.filmsRefresher.isRefreshing = false
                 }
                 is Resource.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
+                    if(!binding.filmsRefresher.isRefreshing){
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
                 }
                 is Resource.Success -> {
                     filmAdapter.differ.submitList(response.data?.films)
@@ -90,7 +98,14 @@ class SearchFilmsFragment : Fragment() {
             }
         })
 
+        val lastSearch = sharedPref?.getString(getString(R.string.lastSearch), viewModel.getRandomWord())
+        viewModel.searchText.postValue(lastSearch)
+
         viewModel.searchText.observe(viewLifecycleOwner) {
+            with (sharedPref?.edit()) {
+                this?.putString(getString(R.string.lastSearch), viewModel.searchText.value)
+                this?.apply()
+            }
             viewModel.getFilms(it)
         }
         binding.filmsRefresher.setOnRefreshListener {
