@@ -1,3 +1,3 @@
 # Films
 Here you can find film
-<img src="docs/searchFilms.png"</img>
+<img src="docs/searchFilms.png"/>
