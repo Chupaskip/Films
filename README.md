@@ -1,3 +1,3 @@
 # Films
 Here you can find film
-![Screenshot](docs/searchFilms.png)
+<img src="docs/searchFilms.png" width="155"/>
