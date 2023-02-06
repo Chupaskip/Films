@@ -1,3 +1,4 @@
 # Films
 Here you can find film
-[!Screenshot](docs/SearchFilms.png)
+<br></br>
+<img src="docs/SearchFilms.png"/>
