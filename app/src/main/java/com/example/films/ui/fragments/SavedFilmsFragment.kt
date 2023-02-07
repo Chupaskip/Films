@@ -1,10 +1,7 @@
 package com.example.films.ui.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -14,31 +11,19 @@ import com.example.films.adapters.FilmAdapter
 import com.example.films.databinding.FragmentSavedFilmsBinding
 import com.example.films.models.film.Film
 import com.example.films.models.film.toSearch
-import com.example.films.ui.FilmViewModel
-import com.example.films.ui.MainActivity
 import com.example.films.util.Resource
 import com.google.android.material.snackbar.Snackbar
 
 
-class SavedFilmsFragment : Fragment() {
+class SavedFilmsFragment : BaseFragment<FragmentSavedFilmsBinding>() {
 
-    private lateinit var binding: FragmentSavedFilmsBinding
-    private lateinit var viewModel: FilmViewModel
     private lateinit var filmAdapter: FilmAdapter
     private lateinit var films: List<Film>
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentSavedFilmsBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
+    override fun viewBinding() = FragmentSavedFilmsBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = (activity as MainActivity).viewModel
         setupRecyclerView()
         viewModel.disableSaveBtn.postValue(true)
         filmAdapter.setOnItemClickListener {
