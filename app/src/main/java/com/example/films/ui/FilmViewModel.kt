@@ -15,6 +15,7 @@ import com.example.films.repository.FilmRepository
 import com.example.films.util.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.io.IOException
 
 class FilmViewModel(
     private val filmRepository: FilmRepository,
@@ -47,21 +48,29 @@ class FilmViewModel(
         responseFun: suspend () -> Response<T>
     ) {
         data.postValue(Resource.Loading())
-        if (hasInternet()) {
-            val response = responseFun.invoke()
-            if (response.isSuccessful) {
-                data.postValue(Resource.Success(response.body()))
-            } else {
-                data.postValue(
-                    Resource.Error(
-                        "there are problems with api-service",
-                        response.body()
+        try {
+            if (hasInternet()) {
+                val response = responseFun.invoke()
+                if (response.isSuccessful) {
+                    data.postValue(Resource.Success(response.body()))
+                } else {
+                    data.postValue(
+                        Resource.Error(
+                            "there are problems with api-service",
+                            response.body()
+                        )
                     )
-                )
+                }
+            } else {
+                data.postValue(Resource.Error("no internet connection"))
             }
-        } else {
-            data.postValue(Resource.Error("no internet connection"))
         }
+       catch (t:Throwable){
+           when(t){
+               is IOException -> data.postValue(Resource.Error("Network Failure"))
+               else -> data.postValue(Resource.Error("Conversion Error"))
+           }
+       }
     }
 
     fun hasInternet(): Boolean {
