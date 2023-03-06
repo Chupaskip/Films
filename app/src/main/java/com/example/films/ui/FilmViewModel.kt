@@ -13,11 +13,14 @@ import com.example.films.models.film.Film
 import com.example.films.models.search.SearchResponse
 import com.example.films.repository.FilmRepository
 import com.example.films.util.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.io.IOException
+import javax.inject.Inject
 
-class FilmViewModel(
+@HiltViewModel
+class FilmViewModel @Inject constructor(
     private val filmRepository: FilmRepository,
     app: Application
 ) : AndroidViewModel(app) {
