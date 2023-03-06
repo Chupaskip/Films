@@ -11,11 +11,14 @@ import com.example.films.R
 import com.example.films.adapters.FilmAdapter
 import com.example.films.databinding.FragmentSearchFilmsBinding
 import com.example.films.util.Resource
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class SearchFilmsFragment : BaseFragment<FragmentSearchFilmsBinding>() {
 
-    private lateinit var filmAdapter: FilmAdapter
+    @Inject
+    lateinit var filmAdapter: FilmAdapter
 
     override fun viewBinding() = FragmentSearchFilmsBinding.inflate(layoutInflater)
 
@@ -99,7 +102,6 @@ class SearchFilmsFragment : BaseFragment<FragmentSearchFilmsBinding>() {
     }
 
     private fun setupRecyclerView() {
-        filmAdapter = FilmAdapter()
         binding.rvFilms.apply {
             adapter = filmAdapter
             layoutManager = GridLayoutManager(activity, 2)

@@ -6,11 +6,14 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.example.films.R
 import com.example.films.databinding.ItemFilmBinding
 import com.example.films.models.search.Search
+import javax.inject.Inject
 
-class FilmAdapter(
+class FilmAdapter @Inject constructor(
+    private val glide: RequestManager,
 ) : RecyclerView.Adapter<FilmAdapter.FilmViewHolder>() {
 
     inner class FilmViewHolder(val viewBinding: ItemFilmBinding) :
@@ -39,10 +42,7 @@ class FilmAdapter(
 
         holder.viewBinding.apply {
             tvFilmName.text = film.title
-            Glide.with(root).load(film.image)
-                .placeholder(R.drawable.loading_animation)
-                .error(R.drawable.ic_broken_image)
-                .into(image)
+            glide.load(film.image).into(image)
             root.setOnClickListener {
                 onItemClickListener?.let { it(film) }
             }

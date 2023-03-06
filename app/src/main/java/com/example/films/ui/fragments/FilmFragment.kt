@@ -5,20 +5,26 @@ import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
+import com.bumptech.glide.request.RequestOptions
 import com.example.films.R
 import com.example.films.databinding.FragmentFilmBinding
 import com.example.films.models.film.Film
 import com.example.films.ui.MainActivity
 import com.example.films.util.Resource
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class FilmFragment : BaseFragment<FragmentFilmBinding>() {
 
     override fun viewBinding() = FragmentFilmBinding.inflate(layoutInflater)
 
     private lateinit var film: Film
 
+    @Inject
+    lateinit var glide: RequestManager
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,7 +50,7 @@ class FilmFragment : BaseFragment<FragmentFilmBinding>() {
         }
 
         viewModel.disableSaveBtn.observe(viewLifecycleOwner) {
-            if (it){
+            if (it) {
                 binding.ivSaveFilm.visibility = View.GONE
             }
         }
@@ -65,11 +71,7 @@ class FilmFragment : BaseFragment<FragmentFilmBinding>() {
         (activity as MainActivity).setSupportActionBar(binding.toolbar)
         binding.apply {
             imageOfFilm.let {
-                Glide.with(it)
-                    .load(film.poster)
-                    .placeholder(R.drawable.loading_animation)
-                    .error(R.drawable.ic_broken_image)
-                    .into(it)
+                glide.load(film.poster).into(it)
             }
             toolbar.apply {
                 title = film.title

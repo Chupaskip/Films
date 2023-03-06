@@ -13,11 +13,14 @@ import com.example.films.models.film.Film
 import com.example.films.models.film.toSearch
 import com.example.films.util.Resource
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class SavedFilmsFragment : BaseFragment<FragmentSavedFilmsBinding>() {
 
-    private lateinit var filmAdapter: FilmAdapter
+    @Inject
+    lateinit var filmAdapter: FilmAdapter
     private lateinit var films: List<Film>
 
     override fun viewBinding() = FragmentSavedFilmsBinding.inflate(layoutInflater)
@@ -76,7 +79,6 @@ class SavedFilmsFragment : BaseFragment<FragmentSavedFilmsBinding>() {
     }
 
     private fun setupRecyclerView() {
-        filmAdapter = FilmAdapter()
         binding.rvSavedFilms.apply {
             adapter = filmAdapter
             layoutManager = GridLayoutManager(activity, 2)
