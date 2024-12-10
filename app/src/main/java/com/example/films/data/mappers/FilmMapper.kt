@@ -2,7 +2,7 @@ package com.example.films.data.mappers
 
 import com.example.films.data.database.FilmDbModel
 import com.example.films.data.network.models.film.FilmDto
-import com.example.films.domain.Film
+import com.example.films.domain.entities.Film
 
 class FilmMapper {
 
@@ -49,5 +49,20 @@ class FilmMapper {
             title = filmDbModel.title,
             writer = filmDbModel.writer,
             poster = filmDbModel.poster
+        )
+
+    fun mapEntityToDbModel(film: Film) =
+        FilmDbModel(
+            id = film.id,
+            actors = film.actors,
+            awards = film.awards,
+            country = film.country,
+            imdbRating = film.imdbRating,
+            plot = film.plot,
+            released = film.released,
+            runtime = film.runtime,
+            title = film.title,
+            writer = film.writer,
+            poster = film.poster
         )
 }

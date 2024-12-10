@@ -1,7 +1,7 @@
 package com.example.films.data.mappers
 
 import com.example.films.data.network.models.search.SearchFilmDto
-import com.example.films.domain.SearchFilm
+import com.example.films.domain.entities.SearchFilm
 
 class SearchFilmMapper {
 

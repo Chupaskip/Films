@@ -11,7 +11,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.films.FilmApplication
 import com.example.films.data.network.models.search.SearchListDto
 import com.example.films.data.repository.FilmRepository
-import com.example.films.domain.Film
+import com.example.films.domain.entities.Film
 import com.example.films.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
