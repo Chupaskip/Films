@@ -1,12 +1,11 @@
 package com.example.films.data.repository
 
 import com.example.films.data.database.FilmDatabase
-import com.example.films.data.models.film.Film
 import com.example.films.data.network.FilmsApi
-import com.example.films.data.network.RetrofitInstance
+import com.example.films.data.network.models.film.Film
 import javax.inject.Inject
 
-class FilmRepository @Inject constructor(
+class FilmRepositoryImpl @Inject constructor(
     private val filmDatabase: FilmDatabase,
     private val filmsApi: FilmsApi
 ) {

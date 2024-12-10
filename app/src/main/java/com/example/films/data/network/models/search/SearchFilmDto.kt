@@ -1,13 +1,13 @@
-package com.example.films.data.models.search
+package com.example.films.data.network.models.search
 
 
 import com.google.gson.annotations.SerializedName
 
-data class Search(
+data class SearchFilmDto(
     @SerializedName("imdbID")
     val id: String,
     @SerializedName("Poster")
-    val image: String,
+    val poster: String,
     @SerializedName("Title")
     val title: String,
     @SerializedName("Type")

@@ -5,11 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
-import com.example.films.R
 import com.example.films.databinding.ItemFilmBinding
-import com.example.films.data.models.search.Search
+import com.example.films.data.network.models.search.SearchFilmDto
 import javax.inject.Inject
 
 class FilmAdapter @Inject constructor(
@@ -19,12 +17,12 @@ class FilmAdapter @Inject constructor(
     inner class FilmViewHolder(val viewBinding: ItemFilmBinding) :
         RecyclerView.ViewHolder(viewBinding.root)
 
-    private val differCallBack = object : DiffUtil.ItemCallback<Search>() {
-        override fun areItemsTheSame(oldItem: Search, newItem: Search): Boolean {
+    private val differCallBack = object : DiffUtil.ItemCallback<SearchFilmDto>() {
+        override fun areItemsTheSame(oldItem: SearchFilmDto, newItem: SearchFilmDto): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Search, newItem: Search): Boolean {
+        override fun areContentsTheSame(oldItem: SearchFilmDto, newItem: SearchFilmDto): Boolean {
             return oldItem == newItem
         }
     }
@@ -42,7 +40,7 @@ class FilmAdapter @Inject constructor(
 
         holder.viewBinding.apply {
             tvFilmName.text = film.title
-            glide.load(film.image).into(image)
+            glide.load(film.poster).into(image)
             root.setOnClickListener {
                 onItemClickListener?.let { it(film) }
             }
@@ -54,9 +52,9 @@ class FilmAdapter @Inject constructor(
     }
 
 
-    private var onItemClickListener: ((Search) -> Unit)? = null
+    private var onItemClickListener: ((SearchFilmDto) -> Unit)? = null
 
-    fun setOnItemClickListener(listener: (Search) -> Unit) {
+    fun setOnItemClickListener(listener: (SearchFilmDto) -> Unit) {
         onItemClickListener = listener
     }
 

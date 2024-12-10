@@ -9,9 +9,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.films.FilmApplication
-import com.example.films.data.models.film.Film
-import com.example.films.data.models.search.SearchResponse
+import com.example.films.data.network.models.search.SearchListDto
 import com.example.films.data.repository.FilmRepository
+import com.example.films.domain.Film
 import com.example.films.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -24,7 +24,7 @@ class FilmViewModel @Inject constructor(
     private val filmRepository: FilmRepository,
     app: Application
 ) : AndroidViewModel(app) {
-    val films: MutableLiveData<Resource<SearchResponse>> = MutableLiveData()
+    val films: MutableLiveData<Resource<SearchListDto>> = MutableLiveData()
     val film: MutableLiveData<Resource<Film>> = MutableLiveData()
     val searchText: MutableLiveData<String> = MutableLiveData()
     var disableSaveBtn:  MutableLiveData<Boolean> = MutableLiveData(false)

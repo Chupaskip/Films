@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.films.R
 import com.example.films.presentation.adapters.FilmAdapter
 import com.example.films.databinding.FragmentSavedFilmsBinding
-import com.example.films.data.models.film.Film
-import com.example.films.data.models.film.toSearch
+import com.example.films.data.network.models.film.Film
+import com.example.films.data.network.models.film.toSearch
+import com.example.films.domain.Film
 import com.example.films.util.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint

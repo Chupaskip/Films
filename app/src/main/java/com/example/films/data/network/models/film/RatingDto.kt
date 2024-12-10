@@ -1,9 +1,9 @@
-package com.example.films.data.models.film
+package com.example.films.data.network.models.film
 
 
 import com.google.gson.annotations.SerializedName
 
-data class Rating(
+data class RatingDto(
     @SerializedName("Source")
     val source: String,
     @SerializedName("Value")

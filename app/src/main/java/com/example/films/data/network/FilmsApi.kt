@@ -1,7 +1,7 @@
 package com.example.films.data.network
 
-import com.example.films.data.models.film.Film
-import com.example.films.data.models.search.SearchResponse
+import com.example.films.data.network.models.film.Film
+import com.example.films.data.network.models.search.SearchListDto
 import com.example.films.data.network.RetrofitInstance.Companion.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET
@@ -16,7 +16,7 @@ interface FilmsApi {
         search: String,
         @Query("apikey")
         apikey: String = API_KEY
-    ): Response<SearchResponse>
+    ): Response<SearchListDto>
 
     @GET("/")
     suspend fun getFilm(

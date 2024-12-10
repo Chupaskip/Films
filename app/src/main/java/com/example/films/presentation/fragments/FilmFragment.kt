@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.RequestManager
 import com.example.films.databinding.FragmentFilmBinding
-import com.example.films.data.models.film.Film
+import com.example.films.data.network.models.film.Film
 import com.example.films.presentation.MainActivity
 import com.example.films.util.Resource
 import com.google.android.material.snackbar.Snackbar

@@ -1,14 +1,13 @@
-package com.example.films.data.models.film
+package com.example.films.data.network.models.film
 
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.films.data.models.search.Search
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 @Entity(tableName = "films")
-data class Film(
+data class FilmDto(
     @PrimaryKey(autoGenerate = false)
     @SerializedName("imdbID")
     val id: String = "",
@@ -52,11 +51,3 @@ data class Film(
     @SerializedName("Year")
     val year: String = ""
 ): Serializable
-
-fun Film.toSearch() = Search(
-    id = this.id,
-    image = this.poster,
-    title = this.title,
-    type = this.type,
-    year = this.year
-)
