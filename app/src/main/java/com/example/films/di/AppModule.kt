@@ -7,9 +7,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
 import com.example.films.R
-import com.example.films.database.FilmDatabase
-import com.example.films.network.FilmsApi
-import com.example.films.util.Constants
+import com.example.films.data.database.FilmDatabase
+import com.example.films.data.network.FilmsApi
+import com.example.films.data.network.RetrofitInstance
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,7 +34,7 @@ object AppModule {
             .addInterceptor(logging)
             .build()
         return Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
+            .baseUrl(RetrofitInstance.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

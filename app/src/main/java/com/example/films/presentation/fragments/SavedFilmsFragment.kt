@@ -1,4 +1,4 @@
-package com.example.films.ui.fragments
+package com.example.films.presentation.fragments
 
 import android.os.Bundle
 import android.view.View
@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.films.R
-import com.example.films.adapters.FilmAdapter
+import com.example.films.presentation.adapters.FilmAdapter
 import com.example.films.databinding.FragmentSavedFilmsBinding
-import com.example.films.models.film.Film
-import com.example.films.models.film.toSearch
+import com.example.films.data.models.film.Film
+import com.example.films.data.models.film.toSearch
 import com.example.films.util.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint

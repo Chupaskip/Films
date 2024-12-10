@@ -1,4 +1,4 @@
-package com.example.films.ui.fragments
+package com.example.films.presentation.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.viewbinding.ViewBinding
-import com.example.films.ui.FilmViewModel
-import dagger.hilt.android.AndroidEntryPoint
+import com.example.films.presentation.FilmViewModel
 
 
 abstract class BaseFragment<VB : ViewBinding> : Fragment() {

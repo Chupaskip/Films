@@ -1,16 +1,13 @@
-package com.example.films.ui.fragments
+package com.example.films.presentation.fragments
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
-import com.bumptech.glide.request.RequestOptions
-import com.example.films.R
 import com.example.films.databinding.FragmentFilmBinding
-import com.example.films.models.film.Film
-import com.example.films.ui.MainActivity
+import com.example.films.data.models.film.Film
+import com.example.films.presentation.MainActivity
 import com.example.films.util.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint

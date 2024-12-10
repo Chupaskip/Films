@@ -1,9 +1,9 @@
-package com.example.films.repository
+package com.example.films.data.repository
 
-import com.example.films.database.FilmDatabase
-import com.example.films.models.film.Film
-import com.example.films.network.FilmsApi
-import com.example.films.network.RetrofitInstance
+import com.example.films.data.database.FilmDatabase
+import com.example.films.data.models.film.Film
+import com.example.films.data.network.FilmsApi
+import com.example.films.data.network.RetrofitInstance
 import javax.inject.Inject
 
 class FilmRepository @Inject constructor(

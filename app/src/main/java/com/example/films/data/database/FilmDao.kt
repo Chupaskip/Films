@@ -1,8 +1,8 @@
-package com.example.films.database
+package com.example.films.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.films.models.film.Film
+import com.example.films.data.models.film.Film
 
 @Dao
 interface FilmDao {

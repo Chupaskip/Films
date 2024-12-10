@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/searchFilmsFragment"
-        android:name="com.example.films.ui.fragments.SearchFilmsFragment"
+        android:name="com.example.films.presentation.fragments.SearchFilmsFragment"
         android:label="Films"
         tools:layout="@layout/fragment_search_films" >
         <action
@@ -16,12 +16,12 @@
     </fragment>
     <fragment
         android:id="@+id/filmFragment"
-        android:name="com.example.films.ui.fragments.FilmFragment"
+        android:name="com.example.films.presentation.fragments.FilmFragment"
         android:label="fragment_film"
         tools:layout="@layout/fragment_film" />
     <fragment
         android:id="@+id/savedFilmsFragment"
-        android:name="com.example.films.ui.fragments.SavedFilmsFragment"
+        android:name="com.example.films.presentation.fragments.SavedFilmsFragment"
         android:label="fragment_saved_films"
         tools:layout="@layout/fragment_saved_films" >
         <action

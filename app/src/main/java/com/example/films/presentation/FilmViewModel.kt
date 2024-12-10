@@ -1,4 +1,4 @@
-package com.example.films.ui
+package com.example.films.presentation
 
 import android.app.Application
 import android.content.Context
@@ -9,9 +9,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.films.FilmApplication
-import com.example.films.models.film.Film
-import com.example.films.models.search.SearchResponse
-import com.example.films.repository.FilmRepository
+import com.example.films.data.models.film.Film
+import com.example.films.data.models.search.SearchResponse
+import com.example.films.data.repository.FilmRepository
 import com.example.films.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

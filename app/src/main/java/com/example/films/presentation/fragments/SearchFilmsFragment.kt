@@ -1,4 +1,4 @@
-package com.example.films.ui.fragments
+package com.example.films.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -8,7 +8,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.films.R
-import com.example.films.adapters.FilmAdapter
+import com.example.films.presentation.adapters.FilmAdapter
 import com.example.films.databinding.FragmentSearchFilmsBinding
 import com.example.films.util.Resource
 import dagger.hilt.android.AndroidEntryPoint

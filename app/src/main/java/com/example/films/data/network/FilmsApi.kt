@@ -1,8 +1,8 @@
-package com.example.films.network
+package com.example.films.data.network
 
-import com.example.films.models.film.Film
-import com.example.films.models.search.SearchResponse
-import com.example.films.util.Constants.Companion.API_KEY
+import com.example.films.data.models.film.Film
+import com.example.films.data.models.search.SearchResponse
+import com.example.films.data.network.RetrofitInstance.Companion.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

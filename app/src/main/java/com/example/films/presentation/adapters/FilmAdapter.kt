@@ -1,4 +1,4 @@
-package com.example.films.adapters
+package com.example.films.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.example.films.R
 import com.example.films.databinding.ItemFilmBinding
-import com.example.films.models.search.Search
+import com.example.films.data.models.search.Search
 import javax.inject.Inject
 
 class FilmAdapter @Inject constructor(

@@ -1,14 +1,14 @@
-package com.example.films.network
+package com.example.films.data.network
 
-import com.example.films.util.Constants.Companion.BASE_URL
 import okhttp3.OkHttpClient
-import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitInstance {
     companion object {
+        const val API_KEY = "d54c8a84"
+        const val BASE_URL = "https://www.omdbapi.com/"
 
         private val retrofit by lazy {
             val logging = HttpLoggingInterceptor()
