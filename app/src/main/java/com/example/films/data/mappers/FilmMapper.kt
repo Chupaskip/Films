@@ -6,21 +6,6 @@ import com.example.films.domain.entities.Film
 
 class FilmMapper {
 
-    fun mapDtoToDbModel(filmDto: FilmDto) =
-        FilmDbModel(
-            id = filmDto.id,
-            actors = filmDto.actors,
-            awards = filmDto.awards,
-            country = filmDto.country,
-            imdbRating = filmDto.imdbRating,
-            plot = filmDto.plot,
-            released = filmDto.released,
-            runtime = filmDto.runtime,
-            title = filmDto.title,
-            writer = filmDto.writer,
-            poster = filmDto.poster
-        )
-
     fun mapDtoToEntity(filmDto: FilmDto) =
         Film(
             id = filmDto.id,

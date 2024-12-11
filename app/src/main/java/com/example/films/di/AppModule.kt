@@ -7,9 +7,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
 import com.example.films.R
+import com.example.films.data.database.FilmDao
 import com.example.films.data.database.FilmDatabase
 import com.example.films.data.network.FilmsApi
 import com.example.films.data.network.RetrofitInstance
+import com.example.films.data.repository.FilmRepositoryImpl
+import com.example.films.domain.repository.FilmRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -78,4 +81,9 @@ object AppModule {
                     .placeholder(drawable)
             )
     }
+
+    @Provides
+    @Singleton
+    fun provideFilmRepository(api: FilmsApi, dao: FilmDao): FilmRepository =
+        FilmRepositoryImpl(dao, api)
 }

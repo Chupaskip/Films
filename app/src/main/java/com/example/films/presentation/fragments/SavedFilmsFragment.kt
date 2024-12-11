@@ -7,11 +7,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.films.R
-import com.example.films.presentation.adapters.FilmAdapter
 import com.example.films.databinding.FragmentSavedFilmsBinding
-import com.example.films.data.network.models.film.toSearch
 import com.example.films.domain.entities.Film
-import com.example.films.util.Resource
+import com.example.films.domain.entities.SearchFilm
+import com.example.films.presentation.adapters.FilmAdapter
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -31,16 +30,22 @@ class SavedFilmsFragment : BaseFragment<FragmentSavedFilmsBinding>() {
         viewModel.disableSaveBtn.postValue(true)
         filmAdapter.setOnItemClickListener {
             val chosenFilm =
-                films.find { film -> film.id == it.id } ?: Film()
-            viewModel.film.postValue(Resource.Success(chosenFilm))
+                films.find { film -> film.id == it.id }
+            viewModel.film.postValue(chosenFilm)
             findNavController().navigate(
                 R.id.action_savedFilmsFragment_to_filmFragment
             )
         }
 
-        viewModel.getSavedFilms().observe(viewLifecycleOwner) {
+        viewModel.favoriteFilms.observe(viewLifecycleOwner) {
             films = it
-            filmAdapter.differ.submitList(films.map { film -> film.toSearch() })
+            filmAdapter.submitList(films.map { film ->
+                SearchFilm(
+                    film.id,
+                    film.poster,
+                    film.title
+                )
+            })
         }
 
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
@@ -57,18 +62,20 @@ class SavedFilmsFragment : BaseFragment<FragmentSavedFilmsBinding>() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
-                val search = filmAdapter.differ.currentList[position]
-                val film = films.find { film -> film.id == search.id } ?: Film()
-                viewModel.deleteFilm(film)
-                Snackbar.make(
-                    view,
-                    "Film was deleted from \nSaved successfully",
-                    Snackbar.LENGTH_LONG
-                ).apply {
-                    setAction("Undo") {
-                        viewModel.upsertFilm(film)
+                val search = filmAdapter.currentList[position]
+                val film = films.find { film -> film.id == search.id }
+                film?.also {
+                    viewModel.deleteFilmFromFavorites(film)
+                    Snackbar.make(
+                        view,
+                        "Film was deleted from \nSaved successfully",
+                        Snackbar.LENGTH_LONG
+                    ).apply {
+                        setAction("Undo") {
+                            viewModel.addFilmToFavorites(film)
+                        }
+                        show()
                     }
-                    show()
                 }
             }
         }

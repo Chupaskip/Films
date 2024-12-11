@@ -16,6 +16,6 @@ interface FilmDao {
     @Delete
     suspend fun deleteFilm(film: FilmDbModel)
 
-    @Query("select * from films")
+    @Query("select * from favorite_films")
     fun getSavedFilms(): LiveData<List<FilmDbModel>>
 }

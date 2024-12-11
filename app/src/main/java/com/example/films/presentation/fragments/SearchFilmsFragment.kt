@@ -30,42 +30,43 @@ class SearchFilmsFragment : BaseFragment<FragmentSearchFilmsBinding>() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         filmAdapter.setOnItemClickListener {
-            if (viewModel.hasInternet()) {
+//            if (viewModel.hasInternet()) {
                 viewModel.getFilm(it.id)
                 findNavController().navigate(
                     R.id.action_searchFilmsFragment_to_filmFragment
                 )
-            } else {
-                Toast.makeText(
-                    activity,
-                    "An error occurred: no internet connection",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
-            }
+//            } else {
+//                Toast.makeText(
+//                    activity,
+//                    "An error occurred: no internet connection",
+//                    Toast.LENGTH_SHORT
+//                )
+//                    .show()
+//            }
 
         }
-        viewModel.films.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Error -> {
-                    response.message.let {
-                        Toast.makeText(activity, "An error occurred: $it", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                    binding.progressBar.visibility = View.GONE
+        viewModel.searchFilms.observe(viewLifecycleOwner) { searchFilms ->
+//            when (response) {
+//                is Resource.Error -> {
+//                    response.message.let {
+//                        Toast.makeText(activity, "An error occurred: $it", Toast.LENGTH_SHORT)
+//                            .show()
+//                    }
+//                    binding.progressBar.visibility = View.GONE
+//                    binding.filmsRefresher.isRefreshing = false
+//                }
+//                is Resource.Loading -> {
+//                    if (!binding.filmsRefresher.isRefreshing) {
+//                        binding.progressBar.visibility = View.VISIBLE
+//                    }
+//                }
+//                is Resource.Success -> {
+//                    filmAdapter.differ.submitList(response.data?.films)
+                    filmAdapter.submitList(searchFilms)
                     binding.filmsRefresher.isRefreshing = false
-                }
-                is Resource.Loading -> {
-                    if (!binding.filmsRefresher.isRefreshing) {
-                        binding.progressBar.visibility = View.VISIBLE
-                    }
-                }
-                is Resource.Success -> {
-                    filmAdapter.differ.submitList(response.data?.films)
-                    binding.filmsRefresher.isRefreshing = false
                     binding.progressBar.visibility = View.GONE
-                }
-            }
+//                }
+//            }
         }
 
 

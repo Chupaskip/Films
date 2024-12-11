@@ -4,5 +4,5 @@ import com.example.films.domain.repository.FilmRepository
 
 class GetSearchFilmsUseCase(private val repository: FilmRepository) {
 
-    suspend fun getSearchFilms(filmName: String) = repository.getSearchFilms(filmName)
+    suspend operator fun invoke(filmName: String) = repository.getSearchFilms(filmName)
 }

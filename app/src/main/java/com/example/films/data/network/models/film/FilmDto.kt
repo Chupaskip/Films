@@ -1,12 +1,10 @@
 package com.example.films.data.network.models.film
 
 
-import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-@Entity(tableName = "films")
 data class FilmDto(
     @PrimaryKey(autoGenerate = false)
     @SerializedName("imdbID")

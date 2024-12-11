@@ -1,12 +1,15 @@
 package com.example.films.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.RequestManager
+import com.example.films.R
 import com.example.films.databinding.FragmentFilmBinding
-import com.example.films.data.network.models.film.Film
+import com.example.films.domain.entities.Film
 import com.example.films.presentation.MainActivity
 import com.example.films.util.Resource
 import com.google.android.material.snackbar.Snackbar
@@ -18,7 +21,7 @@ class FilmFragment : BaseFragment<FragmentFilmBinding>() {
 
     override fun viewBinding() = FragmentFilmBinding.inflate(layoutInflater)
 
-    private lateinit var film: Film
+    private var film: Film? = null
 
     @Inject
     lateinit var glide: RequestManager
@@ -26,24 +29,25 @@ class FilmFragment : BaseFragment<FragmentFilmBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.film.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Error -> {
-                    response.message.let {
-                        Toast.makeText(activity, "An error occurred: $it", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                    binding.progressBar.visibility = View.GONE
-                }
-                is Resource.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    film = response.data!!
-                    bindFilm()
-                    binding.progressBar.visibility = View.GONE
-                }
-            }
+        viewModel.film.observe(viewLifecycleOwner) { film ->
+//            when (response) {
+//                is Resource.Error -> {
+//                    response.message.let {
+//                        Toast.makeText(activity, "An error occurred: $it", Toast.LENGTH_SHORT)
+//                            .show()
+//                    }
+//                    binding.progressBar.visibility = View.GONE
+//                }
+//                is Resource.Loading -> {
+//                    binding.progressBar.visibility = View.VISIBLE
+//                }
+//                is Resource.Success -> {
+//                    film = response.data!!
+            this.film = film
+            bindFilm()
+            binding.progressBar.visibility = View.GONE
+//                }
+//            }
         }
 
         viewModel.disableSaveBtn.observe(viewLifecycleOwner) {
@@ -53,9 +57,10 @@ class FilmFragment : BaseFragment<FragmentFilmBinding>() {
         }
 
         binding.ivSaveFilm.setOnClickListener {
-
-            viewModel.upsertFilm(film)
-            Snackbar.make(view, "Film is saved", Snackbar.LENGTH_SHORT).show()
+            film?.also { film ->
+                viewModel.addFilmToFavorites(film)
+                Snackbar.make(view, "Film is saved", Snackbar.LENGTH_SHORT).show()
+            }
         }
 
         binding.backPress.setOnClickListener {
@@ -66,25 +71,22 @@ class FilmFragment : BaseFragment<FragmentFilmBinding>() {
 
     private fun bindFilm() {
         (activity as MainActivity).setSupportActionBar(binding.toolbar)
-        binding.apply {
-            imageOfFilm.let {
-                glide.load(film.poster).into(it)
-            }
-            toolbar.apply {
-                title = film.title
-                title
-            }
-            tvFilmPlot.text = film.plot
-            dataOfRelease.text = film.released
-            tvRuntime.text = film.runtime
-            tvAwards.text = film.awards
-            tvActors.text = film.actors
-            tvWriter.text = film.writer
-            tvCountry.text = film.country
-            tvImdbRating.text = film.imdbRating
+        film?.also { film ->
+            binding.apply {
+                imageOfFilm.let {
+                    glide.load(film.poster).into(it)
+                }
+                toolbar.title = film.title
+                tvFilmPlot.text = film.plot
+                dataOfRelease.text = film.released
+                tvRuntime.text = film.runtime
+                tvAwards.text = film.awards
+                tvActors.text = film.actors
+                tvWriter.text = film.writer
+                tvCountry.text = film.country
+                tvImdbRating.text = film.imdbRating
 
+            }
         }
     }
-
-
 }

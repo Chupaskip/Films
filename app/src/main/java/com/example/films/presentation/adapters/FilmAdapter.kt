@@ -4,30 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.RequestManager
 import com.example.films.databinding.ItemFilmBinding
-import com.example.films.data.network.models.search.SearchFilmDto
+import com.example.films.domain.entities.SearchFilm
 import javax.inject.Inject
 
 class FilmAdapter @Inject constructor(
     private val glide: RequestManager,
-) : RecyclerView.Adapter<FilmAdapter.FilmViewHolder>() {
+) : ListAdapter<SearchFilm, FilmViewHolder>(SearchFilmDiffCallback()) {
 
-    inner class FilmViewHolder(val viewBinding: ItemFilmBinding) :
-        RecyclerView.ViewHolder(viewBinding.root)
-
-    private val differCallBack = object : DiffUtil.ItemCallback<SearchFilmDto>() {
-        override fun areItemsTheSame(oldItem: SearchFilmDto, newItem: SearchFilmDto): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: SearchFilmDto, newItem: SearchFilmDto): Boolean {
-            return oldItem == newItem
-        }
-    }
-
-    val differ = AsyncListDiffer(this, differCallBack)
+    private var onItemClickListener: ((SearchFilm) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmViewHolder {
         val binding =
@@ -36,7 +23,7 @@ class FilmAdapter @Inject constructor(
     }
 
     override fun onBindViewHolder(holder: FilmViewHolder, position: Int) {
-        val film = differ.currentList[position]
+        val film = currentList[position]
 
         holder.viewBinding.apply {
             tvFilmName.text = film.title
@@ -47,15 +34,7 @@ class FilmAdapter @Inject constructor(
         }
     }
 
-    override fun getItemCount(): Int {
-        return differ.currentList.size
-    }
-
-
-    private var onItemClickListener: ((SearchFilmDto) -> Unit)? = null
-
-    fun setOnItemClickListener(listener: (SearchFilmDto) -> Unit) {
+    fun setOnItemClickListener(listener: (SearchFilm) -> Unit) {
         onItemClickListener = listener
     }
-
 }

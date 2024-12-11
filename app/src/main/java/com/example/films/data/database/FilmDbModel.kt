@@ -3,7 +3,7 @@ package com.example.films.data.database
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "favorite_films")
 data class FilmDbModel(
     @PrimaryKey
     val id: String,
