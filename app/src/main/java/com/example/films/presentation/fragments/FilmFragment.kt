@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.RequestManager
@@ -14,6 +15,8 @@ import com.example.films.presentation.MainActivity
 import com.example.films.util.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -70,13 +73,12 @@ class FilmFragment : BaseFragment<FragmentFilmBinding>() {
 
 
     private fun bindFilm() {
-        (activity as MainActivity).setSupportActionBar(binding.toolbar)
         film?.also { film ->
             binding.apply {
                 imageOfFilm.let {
                     glide.load(film.poster).into(it)
                 }
-                toolbar.title = film.title
+                binding.collapsingToolbar.title = film.title
                 tvFilmPlot.text = film.plot
                 dataOfRelease.text = film.released
                 tvRuntime.text = film.runtime
@@ -85,7 +87,6 @@ class FilmFragment : BaseFragment<FragmentFilmBinding>() {
                 tvWriter.text = film.writer
                 tvCountry.text = film.country
                 tvImdbRating.text = film.imdbRating
-
             }
         }
     }
