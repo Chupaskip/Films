@@ -11,6 +11,7 @@ import com.example.films.databinding.FragmentSavedFilmsBinding
 import com.example.films.domain.entities.Film
 import com.example.films.domain.entities.SearchFilm
 import com.example.films.presentation.adapters.FilmAdapter
+import com.example.films.util.State
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -31,7 +32,7 @@ class SavedFilmsFragment : BaseFragment<FragmentSavedFilmsBinding>() {
         filmAdapter.setOnItemClickListener {
             val chosenFilm =
                 films.find { film -> film.id == it.id }
-            viewModel.film.postValue(chosenFilm)
+            viewModel.filmState.postValue(State.Success(chosenFilm))
             findNavController().navigate(
                 R.id.action_savedFilmsFragment_to_filmFragment
             )

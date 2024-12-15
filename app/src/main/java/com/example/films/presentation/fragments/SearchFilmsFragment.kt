@@ -2,6 +2,7 @@ package com.example.films.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -10,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.films.R
 import com.example.films.presentation.adapters.FilmAdapter
 import com.example.films.databinding.FragmentSearchFilmsBinding
-import com.example.films.util.Resource
+import com.example.films.util.State
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -30,43 +31,34 @@ class SearchFilmsFragment : BaseFragment<FragmentSearchFilmsBinding>() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         filmAdapter.setOnItemClickListener {
-//            if (viewModel.hasInternet()) {
-                viewModel.getFilm(it.id)
-                findNavController().navigate(
-                    R.id.action_searchFilmsFragment_to_filmFragment
-                )
-//            } else {
-//                Toast.makeText(
-//                    activity,
-//                    "An error occurred: no internet connection",
-//                    Toast.LENGTH_SHORT
-//                )
-//                    .show()
-//            }
-
+            viewModel.getFilm(it.id)
+            findNavController().navigate(
+                R.id.action_searchFilmsFragment_to_filmFragment
+            )
         }
-        viewModel.searchFilms.observe(viewLifecycleOwner) { searchFilms ->
-//            when (response) {
-//                is Resource.Error -> {
-//                    response.message.let {
-//                        Toast.makeText(activity, "An error occurred: $it", Toast.LENGTH_SHORT)
-//                            .show()
-//                    }
-//                    binding.progressBar.visibility = View.GONE
-//                    binding.filmsRefresher.isRefreshing = false
-//                }
-//                is Resource.Loading -> {
-//                    if (!binding.filmsRefresher.isRefreshing) {
-//                        binding.progressBar.visibility = View.VISIBLE
-//                    }
-//                }
-//                is Resource.Success -> {
-//                    filmAdapter.differ.submitList(response.data?.films)
-                    filmAdapter.submitList(searchFilms)
+        viewModel.searchFilmsState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is State.Error -> {
+                    state.message.let {
+                        Toast.makeText(activity, "An error occurred: $it", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                    binding.progressBar.visibility = View.GONE
+                    binding.filmsRefresher.isRefreshing = false
+                }
+
+                is State.Loading -> {
+                    if (!binding.filmsRefresher.isRefreshing) {
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+                }
+
+                is State.Success -> {
+                    filmAdapter.submitList(state.data)
                     binding.filmsRefresher.isRefreshing = false
                     binding.progressBar.visibility = View.GONE
-//                }
-//            }
+                }
+            }
         }
 
 
@@ -84,10 +76,6 @@ class SearchFilmsFragment : BaseFragment<FragmentSearchFilmsBinding>() {
                 return false
             }
         })
-
-        val lastSearch =
-            sharedPref?.getString(getString(R.string.lastSearch), viewModel.getRandomWord())
-        viewModel.searchText.postValue(lastSearch)
 
         viewModel.searchText.observe(viewLifecycleOwner) {
             with(sharedPref?.edit()) {
