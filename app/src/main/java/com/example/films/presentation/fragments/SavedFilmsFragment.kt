@@ -9,9 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.films.R
 import com.example.films.databinding.FragmentSavedFilmsBinding
 import com.example.films.domain.entities.Film
-import com.example.films.domain.entities.SearchFilm
 import com.example.films.presentation.adapters.FilmAdapter
-import com.example.films.util.State
+import com.example.films.util.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -32,7 +31,7 @@ class SavedFilmsFragment : BaseFragment<FragmentSavedFilmsBinding>() {
         filmAdapter.setOnItemClickListener {
             val chosenFilm =
                 films.find { film -> film.id == it.id }
-            viewModel.filmState.postValue(State.Success(chosenFilm))
+            viewModel.filmState.postValue(Resource.Success(chosenFilm))
             findNavController().navigate(
                 R.id.action_savedFilmsFragment_to_filmFragment
             )
@@ -41,10 +40,10 @@ class SavedFilmsFragment : BaseFragment<FragmentSavedFilmsBinding>() {
         viewModel.favoriteFilms.observe(viewLifecycleOwner) {
             films = it
             filmAdapter.submitList(films.map { film ->
-                SearchFilm(
-                    film.id,
-                    film.poster,
-                    film.title
+                Film(
+                    id = film.id,
+                    poster =film.poster,
+                    title = film.title
                 )
             })
         }

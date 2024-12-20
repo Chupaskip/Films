@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.RequestManager
 import com.example.films.databinding.FragmentFilmBinding
 import com.example.films.domain.entities.Film
-import com.example.films.util.State
+import com.example.films.util.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -25,7 +25,7 @@ class FilmFragment : BaseFragment<FragmentFilmBinding>() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.filmState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is State.Error -> {
+                is Resource.Error -> {
                     state.message.let {
                         Toast.makeText(activity, "An error occurred: $it", Toast.LENGTH_SHORT)
                             .show()
@@ -33,11 +33,11 @@ class FilmFragment : BaseFragment<FragmentFilmBinding>() {
                     binding.progressBar.visibility = View.GONE
                 }
 
-                is State.Loading -> {
+                is Resource.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
 
-                is State.Success -> {
+                is Resource.Success -> {
                     state.data?.let { bindFilm(film = it) }
                     binding.progressBar.visibility = View.GONE
                 }

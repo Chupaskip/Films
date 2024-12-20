@@ -2,6 +2,7 @@ package com.example.films.data.mappers
 
 import com.example.films.data.database.FilmDbModel
 import com.example.films.data.network.models.film.FilmDto
+import com.example.films.data.network.models.search.SearchFilmDto
 import com.example.films.domain.entities.Film
 
 class FilmMapper {
@@ -49,5 +50,12 @@ class FilmMapper {
             title = film.title,
             writer = film.writer,
             poster = film.poster
+        )
+
+    fun mapSearchDtoToFilmEntity(searchFilmDto: SearchFilmDto) =
+        Film(
+            id = searchFilmDto.id,
+            poster = searchFilmDto.poster,
+            title = searchFilmDto.title
         )
 }

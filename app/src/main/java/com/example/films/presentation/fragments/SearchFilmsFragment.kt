@@ -2,7 +2,6 @@ package com.example.films.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -11,7 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.films.R
 import com.example.films.presentation.adapters.FilmAdapter
 import com.example.films.databinding.FragmentSearchFilmsBinding
-import com.example.films.util.State
+import com.example.films.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -38,7 +37,7 @@ class SearchFilmsFragment : BaseFragment<FragmentSearchFilmsBinding>() {
         }
         viewModel.searchFilmsState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is State.Error -> {
+                is Resource.Error -> {
                     state.message.let {
                         Toast.makeText(activity, "An error occurred: $it", Toast.LENGTH_SHORT)
                             .show()
@@ -47,13 +46,13 @@ class SearchFilmsFragment : BaseFragment<FragmentSearchFilmsBinding>() {
                     binding.filmsRefresher.isRefreshing = false
                 }
 
-                is State.Loading -> {
+                is Resource.Loading -> {
                     if (!binding.filmsRefresher.isRefreshing) {
                         binding.progressBar.visibility = View.VISIBLE
                     }
                 }
 
-                is State.Success -> {
+                is Resource.Success -> {
                     filmAdapter.submitList(state.data)
                     binding.filmsRefresher.isRefreshing = false
                     binding.progressBar.visibility = View.GONE

@@ -1,18 +1,15 @@
 package com.example.films.presentation
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bumptech.glide.load.engine.Resource
 import com.example.films.domain.entities.Film
-import com.example.films.domain.entities.SearchFilm
 import com.example.films.domain.repository.FilmRepository
 import com.example.films.domain.usecases.AddFilmToFavoritesUseCase
 import com.example.films.domain.usecases.DeleteFilmFromFavoritesUseCase
 import com.example.films.domain.usecases.GetFavoritesFilmsUseCase
 import com.example.films.domain.usecases.GetSearchFilmsUseCase
-import com.example.films.util.State
+import com.example.films.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,9 +23,9 @@ class FilmViewModel @Inject constructor(
     private val deleteFilmFromFavoritesUseCase = DeleteFilmFromFavoritesUseCase(filmRepository)
     private val getSavedFilmsUseCase = GetFavoritesFilmsUseCase(filmRepository)
 
-    val searchFilmsState: MutableLiveData<State<List<SearchFilm>>> = MutableLiveData()
+    val searchFilmsState: MutableLiveData<Resource<List<Film>>> = MutableLiveData()
     val favoriteFilms = getSavedFilmsUseCase()
-    val filmState: MutableLiveData<State<Film>> = MutableLiveData()
+    val filmState: MutableLiveData<Resource<Film>> = MutableLiveData()
     val searchText: MutableLiveData<String> = MutableLiveData()
     var disableSaveBtn: MutableLiveData<Boolean> = MutableLiveData(false)
 
@@ -38,7 +35,7 @@ class FilmViewModel @Inject constructor(
 
     fun getFilms(filmName: String) {
         viewModelScope.launch {
-            searchFilmsState.value = State.Loading()
+            searchFilmsState.value = Resource.Loading()
             val result = getSearchFilmsUseCase(filmName)
             searchFilmsState.value = result
         }
@@ -46,7 +43,7 @@ class FilmViewModel @Inject constructor(
 
     fun getFilm(id: String) {
         viewModelScope.launch {
-            filmState.value = State.Loading()
+            filmState.value = Resource.Loading()
             val result = filmRepository.getFilm(id)
             filmState.value = result
         }
